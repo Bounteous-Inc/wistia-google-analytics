@@ -1,0 +1,15 @@
+{
+  "name": "wistia-google-analytics",
+  "version": "1.0.0",
+  "homepage": "https://github.com/lunametrics/wistia-google-analytics",
+  "authors": [
+    "Dan Wilkerson <notdanwilkerson@gmail.com>"
+  ],
+  "description": "Wistia Google Analytics Embed Tracking",
+  "main": "lunametrics-wistia.gtm.js",
+  "keywords": [
+    "wistia",
+    "analytics"
+  ],
+  "license": "MIT"
+}
