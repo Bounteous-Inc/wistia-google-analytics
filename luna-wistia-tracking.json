@@ -95,7 +95,7 @@
             }, {
                 "type": "TEMPLATE",
                 "key": "eventLabel",
-                "value": "{{DLV - Video URL}}"
+                "value": "{{DLV - Video Name}}"
             }, {
                 "type": "TEMPLATE",
                 "key": "eventAction",
