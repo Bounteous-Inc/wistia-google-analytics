@@ -78,8 +78,7 @@
       percentages: {
         each: [],
         every: []
-      },
-      dataLayerName: 'dataLayer'
+      }
     }, config);
 
     var key;
@@ -190,7 +189,7 @@
 
 			default: 
 
-				if (!isUndefined_(window[config.dataLayerName])) {
+				if (!isUndefined_(window[gtmGlobal])) {
 
 					syntax.type = 'gtm';
 					dataLayer = window[gtmGlobal] = window[gtmGlobal] || [];
