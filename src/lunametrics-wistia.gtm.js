@@ -27,43 +27,58 @@
   function listenTo(video) {
 
     var percentages = config._track.percentages;
+    var eventNameDict = {
+			'Play': 'play',
+			'Pause': 'pause',
+			'Watch to End': 'end'
+		};
     var cache = {};
 
-    video.bind('play', function() {
+    forEach_(['Play', 'Watch to End'], function(key) {
 
-      handle('Play', video);
+      if (config.events[key]) {
 
-    });
+        video.bind(eventNameDict[key], function() {
 
-    video.bind('pause', function() {
-
-      if (video.percentWatched() !== 1) handle('Pause', video);
-
-    });
-
-    video.bind('end', function() {
-
-      handle('Watch to End', video);
-
-    });
-
-    video.bind('secondchange', function(s) {
-
-      var percentage = video.percentWatched();
-      var key;
-
-      for (key in percentages) {
-
-        if (percentage >= percentages[key] && !cache[key]) {
-
-          cache[key] = true;
           handle(key, video);
 
-        }
+        });
 
       }
 
     });
+
+    if (config.events.Pause) {
+
+      video.bind('pause', function() {
+
+        if (video.percentWatched() !== 1) handle('Pause', video);
+
+      });
+
+    }
+
+    if (percentages) {
+
+      video.bind('secondchange', function(s) {
+
+        var percentage = video.percentWatched();
+        var key;
+
+        for (key in percentages) {
+
+          if (percentage >= percentages[key] && !cache[key]) {
+
+            cache[key] = true;
+            handle(key, video);
+
+          }
+
+        }
+
+      });
+
+    }
 
   }
 
@@ -179,7 +194,7 @@
 					(window[uaGlobal].q = window[uaGlobal].q || []).push(arguments);
 
 				};
-				window[uaGlobal].l = +new Date(); 
+				window[uaGlobal].l = +new Date();
 				break;
 
 			case 'cl':
@@ -187,7 +202,7 @@
 				window[clGlobal] = window[clGlobal] || [];
 				break;
 
-			default: 
+			default:
 
 				if (!isUndefined_(window[gtmGlobal])) {
 
@@ -345,12 +360,12 @@
  * Object with configurations for syntax
  *
  *   @property type ('gtm'|'cl'|'ua')
- *   Forces script to use GTM ('gtm'), Universal Analytics ('ul'), or 
+ *   Forces script to use GTM ('gtm'), Universal Analytics ('ul'), or
  *   Classic Analytics ('cl'); defaults to auto-detection
  *
  *   @property name string
- *   THIS IS USUALLY UNNECESSARY! Optionally instantiate command queue for syntax 
- *   in question. Useful if the tracking library and tracked events can fire 
- *   before GTM or Google Analytics can be loaded. Be careful with this setting 
+ *   THIS IS USUALLY UNNECESSARY! Optionally instantiate command queue for syntax
+ *   in question. Useful if the tracking library and tracked events can fire
+ *   before GTM or Google Analytics can be loaded. Be careful with this setting
  *   if you're new to GA/GTM. GTM or Universal Analytics Only!
  */
